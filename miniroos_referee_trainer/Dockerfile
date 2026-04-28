@@ -1,5 +1,5 @@
-ARG BUILD_ARCH
-FROM ghcr.io/home-assistant/${BUILD_ARCH}-base:latest
+ARG BUILD_FROM=ghcr.io/home-assistant/base:latest
+FROM $BUILD_FROM
 
 WORKDIR /app
 
@@ -8,8 +8,7 @@ COPY templates /app/templates
 COPY static /app/static
 COPY run.sh /run.sh
 
-RUN apk add --no-cache python3 py3-pip \
-    && pip3 install --no-cache-dir flask==3.1.0 \
+RUN apk add --no-cache python3 py3-flask \
     && chmod a+x /run.sh
 
 CMD ["/run.sh"]
