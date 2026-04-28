@@ -1,0 +1,16 @@
+name: MiniRoos Referee Trainer
+version: "1.0.0"
+slug: miniroos_referee_trainer
+description: Multiple-choice referee confidence trainer based on Football Australia's MiniRoos rules.
+url: https://github.com/your-user/miniroos-referee-trainer
+startup: application
+boot: auto
+init: false
+ingress: true
+ingress_port: 8099
+panel_icon: mdi:whistle
+panel_title: Referee Trainer
+map:
+  - type: addon_config
+options: {}
+schema: {}
