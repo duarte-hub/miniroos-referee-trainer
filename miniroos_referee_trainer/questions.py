@@ -1,9 +1,8 @@
 QUESTION_BANK = {
-    "all": {
-        "title": "MiniRoos Rules",
-        "summary": "All key rules across Under 6 & 7, Under 8 & 9, and Under 10 & 11 — restarts, goalkeepers, fouls, and more.",
+    "u6_7": {
+        "title": "Under 6 & 7",
+        "summary": "No goalkeeper, no throw-ins, no corner kicks — and the simplest restarts in MiniRoos.",
         "questions": [
-            # --- U6 & 7 ---
             {
                 "prompt": "In Under 6 & 7, how many players are on each team?",
                 "choices": [
@@ -64,7 +63,36 @@ QUESTION_BANK = {
                 "explanation": "From both touch-line and goal-line restarts in Under 6 & 7, the ball must touch a teammate before a goal can be scored.",
                 "confidence_tip": "Simplified restarts at U6-7 always require a teammate touch before a goal counts.",
             },
-            # --- U8 & 9 ---
+            {
+                "prompt": "Is there an offside rule in Under 6 & 7 or Under 8 & 9?",
+                "choices": [
+                    "Yes, standard FIFA offside applies in both",
+                    "No offside in either age group",
+                    "Offside applies in U8-9 but not U6-7",
+                    "Offside applies only in the attacking half in both groups",
+                ],
+                "answer": 1,
+                "explanation": "There is no offside rule in either Under 6 & 7 or Under 8 & 9. Game Leaders should still strongly discourage permanent goal-hanging.",
+                "confidence_tip": "No offside doesn't mean do nothing — discouraging goal-hanging is still part of good game leadership.",
+            },
+            {
+                "prompt": "How is play restarted after a goal in all MiniRoos age groups?",
+                "choices": [
+                    "The scoring team kicks off from anywhere in their half",
+                    "A pass to a teammate from the middle of the halfway line, with all players in their own half and opponents at least 5 metres away",
+                    "The conceding team kicks off from the penalty area",
+                    "Drop ball at the centre circle",
+                ],
+                "answer": 1,
+                "explanation": "Across all MiniRoos age groups, play restarts with a pass to a teammate from the middle of the halfway line. All players must be in their own half, opponents at least 5 metres away, and the ball must touch a teammate before a goal can be scored.",
+                "confidence_tip": "The kickoff restart is the same across all age groups — a reliable anchor in your mental rulebook.",
+            },
+        ],
+    },
+    "u8_9": {
+        "title": "Under 8 & 9",
+        "summary": "Throw-ins, corner kicks, a goalkeeper, and penalty decisions enter the game.",
+        "questions": [
             {
                 "prompt": "How many players are on each team in Under 8 & 9?",
                 "choices": [
@@ -90,15 +118,15 @@ QUESTION_BANK = {
                 "confidence_tip": "Moving to U8-9 means more standard football restarts — the throw-in is the first big one to introduce.",
             },
             {
-                "prompt": "Can a goal be scored directly from a throw-in in Under 8 & 9 or Under 10 & 11?",
+                "prompt": "Can a goal be scored directly from a throw-in in Under 8 & 9?",
                 "choices": [
-                    "Yes in both age groups",
-                    "Only in Under 10 & 11",
-                    "No — not in either age group",
-                    "Only if the goalkeeper touches it first",
+                    "Yes",
+                    "Only if it bounces first",
+                    "Only if the Game Leader allows advantage",
+                    "No",
                 ],
-                "answer": 2,
-                "explanation": "A goal cannot be scored directly from a throw-in in either Under 8 & 9 or Under 10 & 11.",
+                "answer": 3,
+                "explanation": "A goal cannot be scored directly from a throw-in in Under 8 & 9. Another player must touch the ball first.",
                 "confidence_tip": "Throw-ins are always indirect — another player must touch the ball before a goal can count.",
             },
             {
@@ -126,19 +154,7 @@ QUESTION_BANK = {
                 "confidence_tip": "Watch the penalty area line — don't call it in play until the ball has clearly exited.",
             },
             {
-                "prompt": "The attacking team last touches the ball before it crosses the goal line in Under 8 & 9. What is the restart?",
-                "choices": [
-                    "Corner kick",
-                    "Goal kick from anywhere within the penalty area",
-                    "Restart from the goal line by the defending team",
-                    "Drop ball",
-                ],
-                "answer": 1,
-                "explanation": "When the attacking team last touches the ball, the restart is a goal kick from anywhere within the penalty area. Opponents must stay at least 10 metres outside.",
-                "confidence_tip": "Track who touched it last — that single fact determines corner kick vs goal kick.",
-            },
-            {
-                "prompt": "The defending team last touches the ball before it crosses the goal line in Under 8 & 9 or Under 10 & 11. What is the restart?",
+                "prompt": "The defending team last touches the ball before it crosses the goal line in Under 8 & 9. What is the restart?",
                 "choices": [
                     "Goal kick",
                     "Drop ball at the corner arc",
@@ -150,7 +166,7 @@ QUESTION_BANK = {
                 "confidence_tip": "Corner kicks allow direct goals — unlike throw-ins. Keep that distinction sharp.",
             },
             {
-                "prompt": "What is awarded for a deliberate or serious foul inside the penalty area in Under 8 & 9 or Under 10 & 11?",
+                "prompt": "What is awarded for a deliberate or serious foul inside the penalty area in Under 8 & 9?",
                 "choices": [
                     "Indirect free kick from the penalty spot",
                     "Penalty kick from an 8 metre mark, with only the goalkeeper in position",
@@ -161,7 +177,24 @@ QUESTION_BANK = {
                 "explanation": "A penalty kick is awarded from an 8 metre penalty mark, with only the goalkeeper in position. All other players must be outside the penalty area and at least 5 metres behind the penalty mark.",
                 "confidence_tip": "On penalties: mark, keeper stays, everyone else outside and 5m behind. That procedure makes the call clean and confident.",
             },
-            # --- U10 & 11 ---
+            {
+                "prompt": "What type of free kick is awarded for handball or fouls and misconduct across all MiniRoos age groups?",
+                "choices": [
+                    "Direct free kick",
+                    "Indirect free kick, with opponents at least 5 metres away",
+                    "Penalty kick every time",
+                    "Throw-in to the other team",
+                ],
+                "answer": 1,
+                "explanation": "Indirect free kicks are awarded for all acts of handball or fouls and misconduct across all MiniRoos age groups. Opponents must be at least 5 metres away. A penalty kick only applies for deliberate or serious acts inside the penalty area.",
+                "confidence_tip": "MiniRoos always uses indirect free kicks for fouls — not direct. Don't carry over the full Laws of the Game here.",
+            },
+        ],
+    },
+    "u10_11": {
+        "title": "Under 10 & 11",
+        "summary": "The largest MiniRoos format — manage the offside teaching approach and spot the small rule differences from U8-9.",
+        "questions": [
             {
                 "prompt": "How many players are on each team in Under 10 & 11?",
                 "choices": [
@@ -198,42 +231,17 @@ QUESTION_BANK = {
                 "explanation": "The official offside rule does not apply in Under 10 & 11. Goals can be scored from an offside position. Game Leaders should still direct players standing in blatant offside positions to move.",
                 "confidence_tip": "U10-11 is a teaching age group — the offside rule is off, but your communication still shapes good habits.",
             },
-            # --- Common across all groups ---
             {
-                "prompt": "Is there an offside rule in Under 6 & 7 or Under 8 & 9?",
+                "prompt": "The defending team last touches the ball before it crosses the goal line in Under 10 & 11. What is the restart?",
                 "choices": [
-                    "Yes, standard FIFA offside applies in both",
-                    "No offside in either age group",
-                    "Offside applies in U8-9 but not U6-7",
-                    "Offside applies only in the attacking half in both groups",
+                    "Goal kick",
+                    "Drop ball at the corner arc",
+                    "Corner kick — the attacking team places the ball inside the nearest corner arc",
+                    "Indirect free kick from the goal area",
                 ],
-                "answer": 1,
-                "explanation": "There is no offside rule in either Under 6 & 7 or Under 8 & 9. Game Leaders should still strongly discourage permanent goal-hanging.",
-                "confidence_tip": "No offside doesn't mean do nothing — discouraging goal-hanging is still part of good game leadership.",
-            },
-            {
-                "prompt": "What type of free kick is awarded for handball or fouls and misconduct across all MiniRoos age groups?",
-                "choices": [
-                    "Direct free kick",
-                    "Indirect free kick, with opponents at least 5 metres away",
-                    "Penalty kick every time",
-                    "Throw-in to the other team",
-                ],
-                "answer": 1,
-                "explanation": "Indirect free kicks are awarded for all acts of handball or fouls and misconduct across all MiniRoos age groups. Opponents must be at least 5 metres away. A penalty kick only applies for deliberate or serious acts inside the penalty area (U8-9 and above).",
-                "confidence_tip": "MiniRoos always uses indirect free kicks for fouls — not direct. Don't carry over the full Laws of the Game here.",
-            },
-            {
-                "prompt": "How is play restarted after a goal in all MiniRoos age groups?",
-                "choices": [
-                    "The scoring team kicks off from anywhere in their half",
-                    "A pass to a teammate from the middle of the halfway line, with all players in their own half and opponents at least 5 metres away",
-                    "The conceding team kicks off from the penalty area",
-                    "Drop ball at the centre circle",
-                ],
-                "answer": 1,
-                "explanation": "Across all MiniRoos age groups, play restarts with a pass to a teammate from the middle of the halfway line. All players must be in their own half, opponents at least 5 metres away, and the ball must touch a teammate before a goal can be scored.",
-                "confidence_tip": "The kickoff restart is the same across all age groups — a reliable anchor in your mental rulebook.",
+                "answer": 2,
+                "explanation": "When the defending team last touches the ball, a corner kick is awarded. The attacking team places the ball inside the nearest corner arc. A goal may be scored directly from a corner kick.",
+                "confidence_tip": "Track who touched it last — that single fact determines corner kick vs goal kick.",
             },
             {
                 "prompt": "When can substitutions be made in MiniRoos?",
@@ -260,5 +268,5 @@ QUESTION_BANK = {
                 "confidence_tip": "If you award an indirect free kick, remind yourself: another touch is needed before a goal counts.",
             },
         ],
-    }
+    },
 }
