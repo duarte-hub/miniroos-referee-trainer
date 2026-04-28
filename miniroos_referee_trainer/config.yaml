@@ -2,6 +2,9 @@ name: MiniRoos Referee Trainer
 version: "1.0.0"
 slug: miniroos_referee_trainer
 description: Multiple-choice referee confidence trainer based on Football Australia's MiniRoos rules.
+arch:
+  - aarch64
+  - amd64
 url: https://github.com/duarte-hub/miniroos-referee-trainer
 startup: application
 boot: auto
