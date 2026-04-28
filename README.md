@@ -24,4 +24,4 @@ A Home Assistant add-on repository containing an ingress web app that helps refe
 ## Notes
 
 - The question bank is derived from `18336_FA_MiniRoos-Documents_Playing-Formats-Rules-2.pdf`.
-- The repository URL in [`repository.yaml`](/Users/duarte/Documents/Codex/2026-04-28/files-mentioned-by-the-user-18336/repository.yaml) should be updated to your real GitHub repo before publishing.
+- Published repository: [duarte-hub/miniroos-referee-trainer](https://github.com/duarte-hub/miniroos-referee-trainer)
