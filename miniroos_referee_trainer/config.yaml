@@ -1,5 +1,5 @@
 name: MiniRoos Referee Trainer
-version: "1.1.7"
+version: "1.1.8"
 slug: miniroos_referee_trainer
 description: Multiple-choice referee confidence trainer based on Football Australia's MiniRoos rules.
 arch:
