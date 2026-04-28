@@ -1,5 +1,5 @@
-ARG BUILD_FROM=python:3.12-alpine
-FROM ${BUILD_FROM}
+ARG BUILD_ARCH
+FROM ghcr.io/home-assistant/${BUILD_ARCH}-base:latest
 
 WORKDIR /app
 
@@ -8,6 +8,7 @@ COPY templates /app/templates
 COPY static /app/static
 COPY run.sh /run.sh
 
-RUN chmod a+x /run.sh
+RUN apk add --no-cache python3 \
+    && chmod a+x /run.sh
 
 CMD ["/run.sh"]
