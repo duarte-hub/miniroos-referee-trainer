@@ -10,7 +10,7 @@ COPY static /app/static
 COPY run.sh /run.sh
 
 RUN apk add --no-cache python3 py3-pip \
-    && pip3 install --no-cache-dir -r /app/requirements.txt \
+    && pip3 install --no-cache-dir --break-system-packages -r /app/requirements.txt \
     && chmod a+x /run.sh
 
 CMD ["/run.sh"]

@@ -1,5 +1,5 @@
 name: MiniRoos Referee Trainer
-version: "1.1.6"
+version: "1.1.7"
 slug: miniroos_referee_trainer
 description: Multiple-choice referee confidence trainer based on Football Australia's MiniRoos rules.
 arch:
@@ -17,8 +17,6 @@ ports:
   8099/tcp: 8099
 ports_description:
   8099/tcp: Web interface
-map:
-  - type: addon_config
 options:
   port: 8099
 schema:
