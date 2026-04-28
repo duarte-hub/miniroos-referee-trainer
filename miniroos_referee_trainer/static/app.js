@@ -132,6 +132,14 @@ function checkAnswer(selectedIndex) {
   }
 }
 
+function submitResult(groupTitle, score, total, percent) {
+  fetch("submit-result", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ age_group: groupTitle, score, total, percent }),
+  }).catch(() => {}); // silently ignore network errors
+}
+
 function showResults() {
   const group = bank[currentGroupKey];
   const total = currentQuestions.length;
@@ -143,6 +151,8 @@ function showResults() {
   } else if (percent >= 60) {
     message = "Solid base. Focus on restart spacing and what changes between formats to level up fast.";
   }
+
+  submitResult(group.title, score, total, percent);
 
   quizPanel.classList.add("hidden");
   resultsPanel.classList.remove("hidden");

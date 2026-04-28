@@ -1,9 +1,12 @@
 import json
 import os
+from datetime import datetime
 
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template, request
 
 from questions import QUESTION_BANK
+
+RESULTS_PATH = "/data/results.json"
 
 
 def get_port():
@@ -16,6 +19,21 @@ def get_port():
         except Exception:
             pass
     return 8099
+
+
+def load_results():
+    try:
+        if os.path.exists(RESULTS_PATH):
+            with open(RESULTS_PATH) as f:
+                return json.load(f)
+    except Exception:
+        pass
+    return []
+
+
+def save_results(results):
+    with open(RESULTS_PATH, "w") as f:
+        json.dump(results, f, indent=2)
 
 
 class IngressFix:
@@ -46,6 +64,33 @@ app.wsgi_app = IngressFix(app.wsgi_app)
 @app.route("/")
 def index():
     return render_template("index.html", question_bank=QUESTION_BANK)
+
+
+@app.route("/submit-result", methods=["POST"])
+def submit_result():
+    data = request.get_json(silent=True) or {}
+    results = load_results()
+    results.append({
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "age_group": data.get("age_group", "Unknown"),
+        "score": data.get("score", 0),
+        "total": data.get("total", 0),
+        "percent": data.get("percent", 0),
+    })
+    save_results(results)
+    return jsonify({"ok": True})
+
+
+@app.route("/admin")
+def admin():
+    results = list(reversed(load_results()))
+    return render_template("admin.html", results=results)
+
+
+@app.route("/admin/clear", methods=["POST"])
+def clear_results():
+    save_results([])
+    return jsonify({"ok": True})
 
 
 if __name__ == "__main__":

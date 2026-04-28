@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Results — MiniRoos Referee Trainer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+      .admin-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+      }
+      .results-table th {
+        text-align: left;
+        padding: 0.6rem 1rem;
+        border-bottom: 2px solid var(--border);
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .results-table td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .results-table tr:last-child td {
+        border-bottom: none;
+      }
+      .results-table tr:hover td {
+        background: var(--surface-hover, rgba(0,0,0,0.03));
+      }
+      .pct-badge {
+        display: inline-block;
+        padding: 0.2rem 0.6rem;
+        border-radius: 99px;
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+      .pct-high  { background: #d1fae5; color: #065f46; }
+      .pct-mid   { background: #fef9c3; color: #713f12; }
+      .pct-low   { background: #fee2e2; color: #991b1b; }
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--muted);
+      }
+      .empty-state p { margin-top: 0.5rem; }
+      .danger { color: #dc2626; }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="card">
+        <div class="admin-header">
+          <div>
+            <p class="eyebrow">Admin</p>
+            <h1 style="margin:0">Quiz Results</h1>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap">
+            {% if results %}
+            <button id="clear-btn" class="button ghost danger" type="button">Clear all</button>
+            {% endif %}
+            <a href="{{ url_for('index') }}" class="button primary">← Back to quiz</a>
+          </div>
+        </div>
+
+        {% if results %}
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Date &amp; Time</th>
+              <th>Age Group</th>
+              <th>Score</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in results %}
+            <tr>
+              <td style="color:var(--muted);font-size:0.875rem">{{ r.timestamp }}</td>
+              <td><strong>{{ r.age_group }}</strong></td>
+              <td>{{ r.score }} / {{ r.total }}</td>
+              <td>
+                <span class="pct-badge {% if r.percent >= 85 %}pct-high{% elif r.percent >= 60 %}pct-mid{% else %}pct-low{% endif %}">
+                  {{ r.percent }}%
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+          <h2>No results yet</h2>
+          <p>Complete a quiz and your results will appear here.</p>
+          <a href="{{ url_for('index') }}" class="button primary" style="margin-top:1.5rem;display:inline-block">Start a quiz</a>
+        </div>
+        {% endif %}
+      </section>
+    </main>
+
+    <script>
+      const clearBtn = document.getElementById("clear-btn");
+      if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+          if (!confirm("Clear all results? This cannot be undone.")) return;
+          fetch("admin/clear", { method: "POST" })
+            .then(() => location.reload())
+            .catch(() => alert("Failed to clear results."));
+        });
+      }
+    </script>
+  </body>
+</html>
