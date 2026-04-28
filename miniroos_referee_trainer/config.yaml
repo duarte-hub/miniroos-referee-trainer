@@ -1,5 +1,5 @@
 name: MiniRoos Referee Trainer
-version: "1.1.4"
+version: "1.1.5"
 slug: miniroos_referee_trainer
 description: Multiple-choice referee confidence trainer based on Football Australia's MiniRoos rules.
 arch:
@@ -13,7 +13,13 @@ ingress: true
 ingress_port: 8099
 panel_icon: mdi:whistle
 panel_title: Referee Trainer
+ports:
+  8099/tcp: 8099
+ports_description:
+  8099/tcp: Web interface
 map:
   - type: addon_config
-options: {}
-schema: {}
+options:
+  port: 8099
+schema:
+  port: int

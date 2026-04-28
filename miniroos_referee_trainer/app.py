@@ -1,6 +1,21 @@
+import json
+import os
+
 from flask import Flask, render_template
 
 from questions import QUESTION_BANK
+
+
+def get_port():
+    """Read the port from the Home Assistant add-on options, defaulting to 8099."""
+    options_path = "/data/options.json"
+    if os.path.exists(options_path):
+        try:
+            with open(options_path) as f:
+                return int(json.load(f).get("port", 8099))
+        except Exception:
+            pass
+    return 8099
 
 
 class IngressFix:
@@ -34,4 +49,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8099)
+    app.run(host="0.0.0.0", port=get_port())
