@@ -4,54 +4,52 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MiniRoos Referee Trainer</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
     <main class="shell">
       <section class="hero">
-        <p class="eyebrow">Home Assistant Add-on</p>
-        <h1>MiniRoos Referee Trainer</h1>
-        <p class="lede">
-          Build confidence with age-specific multiple-choice questions, quick explanations,
-          and calm restart reminders based on the supplied Football Australia MiniRoos rules.
-        </p>
+        <div class="hero-copy">
+          <p class="eyebrow">MiniRoos Referee Trainer</p>
+          <h1>Learn the call. Trust the whistle.</h1>
+          <p class="lede">
+            Short scenario quizzes built from the Football Australia MiniRoos rules to help referees
+            feel calmer, quicker, and more confident on game day.
+          </p>
+        </div>
+        <div class="hero-panel">
+          <p class="panel-kicker">What you’ll practise</p>
+          <ul class="hero-points">
+            <li>Restarts and distances</li>
+            <li>Goalkeeper restrictions</li>
+            <li>Age-group rule differences</li>
+            <li>Penalty and foul decisions</li>
+          </ul>
+        </div>
       </section>
 
-      <section class="controls card">
-        <div>
-          <label for="age-group">Age group</label>
-          <select id="age-group"></select>
+      <section class="chooser card">
+        <div class="chooser-header">
+          <div>
+            <p class="eyebrow">Pick a Track</p>
+            <h2>Choose the match format you want to referee better</h2>
+          </div>
+          <div class="scoreboard">
+            <span>Session score</span>
+            <strong id="score">0</strong>
+          </div>
         </div>
-        <button id="start-button" class="button primary">Start Quiz</button>
-      </section>
 
-      <section id="overview" class="overview card">
-        <h2>How this helps referees</h2>
-        <div class="overview-grid">
-          <article>
-            <h3>Learn the format</h3>
-            <p>Know player numbers, restarts, distances, and goalkeeper limits before the whistle goes.</p>
-          </article>
-          <article>
-            <h3>Build confidence</h3>
-            <p>Every answer includes a referee-friendly explanation and a practical decision-making tip.</p>
-          </article>
-          <article>
-            <h3>Stay age-appropriate</h3>
-            <p>Each question set is tailored to the exact MiniRoos age-group rules in the attached document.</p>
-          </article>
-        </div>
+        <div id="group-grid" class="group-grid"></div>
       </section>
 
       <section id="quiz-panel" class="quiz card hidden">
-        <div class="quiz-top">
+        <div class="quiz-head">
           <div>
             <p id="quiz-title" class="eyebrow"></p>
             <h2 id="question-counter"></h2>
           </div>
-          <div class="score-pill">
-            Score <span id="score">0</span>
-          </div>
+          <button id="back-button" class="button ghost" type="button">Change Age Group</button>
         </div>
 
         <div class="progress-track" aria-hidden="true">
@@ -68,8 +66,8 @@
         </article>
 
         <div class="actions">
-          <button id="next-button" class="button hidden">Next Question</button>
-          <button id="restart-button" class="button subtle hidden">Try This Age Group Again</button>
+          <button id="next-button" class="button primary hidden" type="button">Next Question</button>
+          <button id="restart-button" class="button subtle hidden" type="button">Replay This Track</button>
         </div>
       </section>
 
@@ -78,10 +76,14 @@
         <h2 id="results-title"></h2>
         <p id="results-summary"></p>
         <div id="results-message" class="results-message"></div>
-        <button id="results-restart" class="button primary">Play Again</button>
+        <div class="actions">
+          <button id="results-restart" class="button primary" type="button">Try Again</button>
+          <button id="results-change-group" class="button ghost" type="button">Pick Another Age Group</button>
+        </div>
       </section>
     </main>
 
-    <script src="/static/app.js"></script>
+    <script id="question-bank-data" type="application/json">{{ question_bank | tojson }}</script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
   </body>
-  </html>
+</html>
