@@ -322,6 +322,56 @@ h2 {
   margin-top: 1rem;
 }
 
+.answers-summary {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.summary-item {
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.summary-item.correct {
+  border-left: 4px solid var(--success);
+}
+
+.summary-item.incorrect {
+  border-left: 4px solid var(--danger);
+}
+
+.summary-q {
+  margin: 0 0 0.4rem;
+  font-size: 0.97rem;
+}
+
+.summary-wrong,
+.summary-correct-answer {
+  margin: 0.2rem 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.summary-wrong span {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.summary-correct-answer span {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.summary-explanation {
+  margin: 0.5rem 0 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
 .hidden {
   display: none;
 }

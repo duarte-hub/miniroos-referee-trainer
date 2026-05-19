@@ -5,6 +5,7 @@ let currentQuestions = [];
 let currentIndex = 0;
 let score = 0;
 let answered = false;
+let history = [];
 
 const groupGrid = document.getElementById("group-grid");
 const quizPanel = document.getElementById("quiz-panel");
@@ -62,6 +63,7 @@ function beginQuiz(groupKey) {
   currentIndex = 0;
   score = 0;
   answered = false;
+  history = [];
 
   scoreEl.textContent = "0";
   resultsPanel.classList.add("hidden");
@@ -119,6 +121,15 @@ function checkAnswer(selectedIndex) {
     scoreEl.textContent = String(score);
   }
 
+  history.push({
+    prompt: question.prompt,
+    choices: question.choices,
+    selectedIndex,
+    correctIndex: question.answer,
+    correct,
+    explanation: question.explanation,
+  });
+
   feedbackTitle.textContent = correct ? "Correct call" : "Review the restart";
   feedbackExplanation.textContent = question.explanation;
   feedbackTip.textContent = `Confidence tip: ${question.confidence_tip}`;
@@ -136,8 +147,8 @@ function submitResult(groupTitle, score, total, percent) {
   fetch("submit-result", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ age_group: groupTitle, score, total, percent }),
-  }).catch(() => {}); // silently ignore network errors
+    body: JSON.stringify({ age_group: groupTitle, score, total, percent, answers: history }),
+  }).catch(() => {});
 }
 
 function showResults() {
@@ -160,6 +171,20 @@ function showResults() {
   resultsTitle.textContent = `${group.title} complete`;
   resultsSummary.textContent = `You scored ${score} out of ${total} (${percent}%).`;
   resultsMessage.textContent = message;
+
+  const summaryEl = document.getElementById("answers-summary");
+  summaryEl.innerHTML = history.map((item, i) => {
+    const status = item.correct ? "correct" : "incorrect";
+    const wrongNote = item.correct ? "" : `
+      <p class="summary-wrong">Your answer: <span>${item.choices[item.selectedIndex]}</span></p>
+      <p class="summary-correct-answer">Correct answer: <span>${item.choices[item.correctIndex]}</span></p>`;
+    return `
+      <div class="summary-item ${status}">
+        <p class="summary-q"><strong>Q${i + 1}.</strong> ${item.prompt}</p>
+        ${wrongNote}
+        <p class="summary-explanation">${item.explanation}</p>
+      </div>`;
+  }).join("");
 }
 
 function resetToChooser() {

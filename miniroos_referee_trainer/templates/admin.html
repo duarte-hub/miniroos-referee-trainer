@@ -56,6 +56,39 @@
       }
       .empty-state p { margin-top: 0.5rem; }
       .danger { color: #dc2626; }
+      .detail-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 0.82rem;
+        color: var(--primary);
+        font-weight: 700;
+        padding: 0;
+        text-decoration: underline;
+      }
+      .detail-row td {
+        padding: 0;
+        border-bottom: 2px solid var(--line);
+      }
+      .detail-inner {
+        padding: 0.75rem 1rem 1rem;
+        display: grid;
+        gap: 0.6rem;
+      }
+      .detail-item {
+        border-radius: 14px;
+        padding: 0.7rem 0.9rem;
+        border-left: 4px solid var(--line);
+        background: rgba(255,255,255,0.5);
+        font-size: 0.88rem;
+      }
+      .detail-item.correct { border-left-color: #147a57; }
+      .detail-item.incorrect { border-left-color: #b5463f; }
+      .detail-item .q-text { font-weight: 700; margin: 0 0 0.3rem; }
+      .detail-item .d-label { color: var(--muted); font-size: 0.82rem; }
+      .detail-item .d-correct { color: #147a57; font-weight: 700; }
+      .detail-item .d-wrong   { color: #b5463f; font-weight: 700; }
+      .detail-item .d-expl    { color: var(--muted); margin-top: 0.35rem; }
     </style>
   </head>
   <body>
@@ -82,6 +115,7 @@
               <th>Age Group</th>
               <th>Score</th>
               <th>Result</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -95,7 +129,32 @@
                   {{ r.percent }}%
                 </span>
               </td>
+              <td>
+                {% if r.answers %}
+                <button class="detail-toggle" type="button" data-target="detail-{{ loop.index0 }}">Details ▾</button>
+                {% endif %}
+              </td>
             </tr>
+            {% if r.answers %}
+            <tr id="detail-{{ loop.index0 }}" class="detail-row" style="display:none">
+              <td colspan="5">
+                <div class="detail-inner">
+                  {% for a in r.answers %}
+                  <div class="detail-item {{ 'correct' if a.correct else 'incorrect' }}">
+                    <p class="q-text">Q{{ loop.index }}. {{ a.prompt }}</p>
+                    {% if a.correct %}
+                    <p class="d-label">Answered: <span class="d-correct">{{ a.choices[a.correctIndex] }}</span></p>
+                    {% else %}
+                    <p class="d-label">Answered: <span class="d-wrong">{{ a.choices[a.selectedIndex] }}</span></p>
+                    <p class="d-label">Correct: <span class="d-correct">{{ a.choices[a.correctIndex] }}</span></p>
+                    {% endif %}
+                    <p class="d-label d-expl">{{ a.explanation }}</p>
+                  </div>
+                  {% endfor %}
+                </div>
+              </td>
+            </tr>
+            {% endif %}
             {% endfor %}
           </tbody>
         </table>
@@ -119,6 +178,15 @@
             .catch(() => alert("Failed to clear results."));
         });
       }
+
+      document.querySelectorAll(".detail-toggle").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const row = document.getElementById(btn.dataset.target);
+          const open = row.style.display !== "none";
+          row.style.display = open ? "none" : "table-row";
+          btn.textContent = open ? "Details ▾" : "Details ▴";
+        });
+      });
     </script>
   </body>
 </html>

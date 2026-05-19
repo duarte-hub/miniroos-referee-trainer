@@ -76,6 +76,7 @@ def submit_result():
         "score": data.get("score", 0),
         "total": data.get("total", 0),
         "percent": data.get("percent", 0),
+        "answers": data.get("answers", []),
     })
     save_results(results)
     return jsonify({"ok": True})
